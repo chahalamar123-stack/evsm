@@ -1,148 +1,202 @@
-document.documentElement.classList.add("js");
-
-const body = document.body;
-const navToggle = document.querySelector(".nav-toggle");
-const navPanel = document.querySelector(".nav-panel");
-const contactForm = document.querySelector("[data-contact-form]");
-const statusField = document.querySelector("[data-form-status]");
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-const syncScrollState = () => {
-  body.classList.toggle("is-scrolled", window.scrollY > 18);
-};
-
-syncScrollState();
-window.addEventListener("scroll", syncScrollState, { passive: true });
-
-if (navToggle && navPanel) {
-  const closeMenu = () => {
-    body.classList.remove("nav-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  };
-
-  navToggle.addEventListener("click", () => {
-    const nextExpanded = navToggle.getAttribute("aria-expanded") !== "true";
-    navToggle.setAttribute("aria-expanded", String(nextExpanded));
-    body.classList.toggle("nav-open", nextExpanded);
-  });
-
-  navPanel.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-      closeMenu();
-    }
-  });
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-if (!prefersReducedMotion.matches) {
-  const revealElements = Array.from(document.querySelectorAll("[data-reveal]"));
-  revealElements.forEach((element, index) => {
-    element.style.setProperty("--reveal-delay", `${Math.min(index * 55, 220)}ms`);
-  });
+async function handleInquiryForm() {
+  const form = document.querySelector("[data-inquiry-form]");
+  const status = document.querySelector("[data-inquiry-status]");
 
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.15,
-      rootMargin: "0px 0px -10% 0px",
-    }
-  );
-
-  revealElements.forEach((element) => {
-    revealObserver.observe(element);
-  });
-
-  const parallaxNodes = Array.from(document.querySelectorAll("[data-parallax]"));
-
-  if (parallaxNodes.length) {
-    let ticking = false;
-
-    const updateParallax = () => {
-      const y = Math.min(window.scrollY, 800);
-      parallaxNodes.forEach((node) => {
-        const depth = Number(node.dataset.parallax) || 18;
-        node.style.setProperty("--parallax-shift", `${y / depth}px`);
-      });
-      ticking = false;
-    };
-
-    const requestParallax = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    };
-
-    updateParallax();
-    window.addEventListener("scroll", requestParallax, { passive: true });
+  if (!form || !status) {
+    return;
   }
-} else {
-  document.querySelectorAll("[data-reveal]").forEach((element) => {
-    element.classList.add("is-visible");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("inquiry-name")?.value.trim() || "";
+    const phone = document.getElementById("inquiry-phone")?.value.trim() || "";
+    const email = document.getElementById("inquiry-email")?.value.trim() || "";
+    const message = document.getElementById("inquiry-message")?.value.trim() || "";
+
+    if (!name || !phone || !email || !message) {
+      status.textContent = "Please complete each field.";
+      status.dataset.state = "error";
+      return;
+    }
+
+    status.textContent = "Sending inquiry...";
+    status.dataset.state = "pending";
+
+    try {
+      const response = await fetch("/submit-inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, phone, email, message })
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Unable to submit inquiry.");
+      }
+
+      form.reset();
+      status.textContent = "Inquiry received. It is saved to your dashboard and you can reply from Amar@EverestStudioandmedia.com.";
+      status.dataset.state = "success";
+    } catch (error) {
+      status.textContent = error.message;
+      status.dataset.state = "error";
+    }
   });
 }
 
-const counterElements = Array.from(document.querySelectorAll("[data-count]"));
+async function handleLoginForm() {
+  const form = document.querySelector("[data-login-form]");
+  const status = document.querySelector("[data-login-status]");
 
-if (counterElements.length && !prefersReducedMotion.matches) {
-  const animateCounter = (element) => {
-    const target = Number(element.dataset.count || element.textContent);
-    const length = String(target).length;
-    const start = performance.now();
-    const duration = 1000;
+  if (!form || !status) {
+    return;
+  }
 
-    const tick = (time) => {
-      const progress = Math.min((time - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = Math.round(target * eased);
-      element.textContent = String(value).padStart(length, "0");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-      if (progress < 1) {
-        window.requestAnimationFrame(tick);
+    const username = document.getElementById("username")?.value.trim() || "";
+    const password = document.getElementById("password")?.value.trim() || "";
+
+    if (!username || !password) {
+      status.textContent = "Enter a username and password.";
+      status.dataset.state = "error";
+      return;
+    }
+
+    status.textContent = "Checking credentials...";
+    status.dataset.state = "pending";
+
+    try {
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Login failed.");
       }
-    };
 
-    window.requestAnimationFrame(tick);
-  };
+      window.location.href = "/admin";
+    } catch (error) {
+      status.textContent = error.message;
+      status.dataset.state = "error";
+    }
+  });
+}
 
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
+async function loadAdminDashboard() {
+  const list = document.querySelector("[data-inquiries-list]");
+  const empty = document.querySelector("[data-inquiries-empty]");
+  const logoutButton = document.querySelector("[data-logout-button]");
+  const refreshButton = document.querySelector("[data-refresh-button]");
+
+  if (!list || !empty || !logoutButton) {
+    return;
+  }
+
+  logoutButton.addEventListener("click", () => {
+    window.location.href = "/logout";
+  });
+
+  async function renderInquiries() {
+    if (refreshButton) {
+      refreshButton.disabled = true;
+      refreshButton.textContent = "Refreshing...";
+    }
+
+    try {
+      const response = await fetch("/admin/inquiries", {
+        headers: {
+          Accept: "application/json"
         }
       });
-    },
-    { threshold: 0.5 }
-  );
 
-  counterElements.forEach((element) => {
-    counterObserver.observe(element);
-  });
-} else {
-  counterElements.forEach((element) => {
-    const target = Number(element.dataset.count || element.textContent);
-    const length = String(target).length;
-    element.textContent = String(target).padStart(length, "0");
-  });
+      if (response.status === 403) {
+        window.location.href = "/login.html";
+        return;
+      }
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Unable to load inquiries.");
+      }
+
+      if (!payload.inquiries.length) {
+        empty.hidden = false;
+        empty.textContent = "No inquiries yet.";
+        list.innerHTML = "";
+        return;
+      }
+
+      empty.hidden = true;
+      list.innerHTML = payload.inquiries
+        .map(
+          (inquiry) => `
+            <article class="admin-card">
+              <div class="admin-card-head">
+                <h3>${escapeHTML(inquiry.name)}</h3>
+                <time>${escapeHTML(new Date(inquiry.created_at).toLocaleString())}</time>
+              </div>
+              <div class="admin-contact-links">
+                ${
+                  inquiry.phone
+                    ? `<a class="admin-contact-link" href="tel:${escapeHTML(inquiry.phone)}">${escapeHTML(inquiry.phone)}</a>`
+                    : ""
+                }
+                <a class="admin-contact-link" href="mailto:${escapeHTML(inquiry.email)}">${escapeHTML(inquiry.email)}</a>
+              </div>
+              <p class="admin-message">${escapeHTML(inquiry.message)}</p>
+              <div class="admin-card-actions">
+                <a class="button button-secondary" href="mailto:${escapeHTML(inquiry.email)}?subject=${encodeURIComponent(
+                  `Reply from Everest Studio & Media`
+                )}">Reply by email</a>
+                ${
+                  inquiry.phone
+                    ? `<a class="button button-secondary" href="tel:${escapeHTML(inquiry.phone)}">Call contact</a>`
+                    : ""
+                }
+              </div>
+            </article>
+          `
+        )
+        .join("");
+    } catch (error) {
+      empty.hidden = false;
+      empty.textContent = error.message;
+    } finally {
+      if (refreshButton) {
+        refreshButton.disabled = false;
+        refreshButton.textContent = "Refresh";
+      }
+    }
+  }
+
+  refreshButton?.addEventListener("click", renderInquiries);
+  await renderInquiries();
 }
 
-if (contactForm && statusField) {
-  contactForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    contactForm.reset();
-    statusField.textContent =
-      "Your inquiry layout is ready. Connect this form to your preferred inbox or CRM endpoint before launch.";
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  handleInquiryForm();
+  handleLoginForm();
+  loadAdminDashboard();
+});

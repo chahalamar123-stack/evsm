@@ -6,87 +6,23 @@
     <title>Everest Studio &amp; Media | Contact</title>
     <meta
       name="description"
-      content="Start a project with Everest Studio & Media and request a consultation for brand identity, websites, content systems, paid media, and ongoing growth support."
+      content="Request a demo or contact Everest Studio & Media about branding, website, and social media projects."
     />
-    <meta name="theme-color" content="#07110d" />
-    <script>
-      document.documentElement.classList.add("js");
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
   </head>
-  <body class="inner-page contact-page">
-    <a class="skip-link" href="#content">Skip to content</a>
-
+  <body>
     <div class="site-shell">
       <header class="site-header">
-        <div class="nav-shell">
-          <a class="brand-mark" href="index.html">
-            <img class="brand-logo-image" src="logo-main.png" alt="Everest Studio &amp; Media" />
+        <div class="nav-wrap">
+          <a class="brand" href="index.html" aria-label="Everest Studio & Media home">
+            <img class="brand-logo" src="logo-main.png" alt="Everest Studio &amp; Media" />
           </a>
-<<<<<<< HEAD
-
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-expanded="false"
-            aria-controls="site-navigation"
-            aria-label="Toggle navigation"
-          >
-            <span></span>
-            <span></span>
-          </button>
-
-          <div class="nav-panel" id="site-navigation">
-            <nav class="site-nav" aria-label="Primary">
-              <a href="index.html">Home</a>
-              <a href="services.html">Services</a>
-              <a href="portfolio.html">Portfolio</a>
-              <a href="index.html#about">About</a>
-              <a class="is-current" href="contact.html" aria-current="page">Contact</a>
-            </nav>
-            <a class="button button-primary nav-cta" href="contact.html">Book a Consultation</a>
-          </div>
-        </div>
-      </header>
-
-      <main id="content" class="page-main">
-        <section class="page-hero section">
-          <div class="container">
-            <article class="page-hero-shell" data-reveal>
-              <div class="page-hero-grid">
-                <div>
-                  <span class="section-kicker">Contact</span>
-                  <h1 class="page-title">Tell us what the brand needs next.</h1>
-                  <p class="lead">
-                    Share the scope, the timeline, and where the presence currently falls short.
-                    We will frame the right next step from there.
-                  </p>
-                  <div class="page-pill-row">
-                    <span class="page-pill">Brand Identity</span>
-                    <span class="page-pill">Web Design</span>
-                    <span class="page-pill">Paid Media</span>
-                    <span class="page-pill">Monthly Retainers</span>
-                  </div>
-                </div>
-
-                <article class="support-card">
-                  <h3>Professional inquiry, clear next steps.</h3>
-                  <ul class="support-list">
-                    <li>Best for rebrands, website builds, campaign launches, and retained support.</li>
-                    <li>Ideal clients value quality, restraint, and a stronger digital first impression.</li>
-                    <li>Use the form to outline goals, priorities, timing, and current friction points.</li>
-                  </ul>
-                </article>
-              </div>
-            </article>
-=======
           <nav class="site-nav" aria-label="Primary">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -108,22 +44,10 @@
               details so Everest Studio &amp; Media can respond with the right next
               step.
             </p>
->>>>>>> e169e1c (Upload Everest Studio & Media site)
           </div>
         </section>
 
         <section class="section">
-<<<<<<< HEAD
-          <div class="container">
-            <div class="contact-grid">
-              <aside class="contact-panel" data-reveal>
-                <span class="section-kicker">Inquiry details</span>
-                <h3>Built for serious conversations.</h3>
-                <p>
-                  Whether the need is a sharper identity, a more credible website, stronger
-                  content systems, or an ongoing growth partner, the inquiry process should feel
-                  as polished as the work itself.
-=======
           <div class="contact-layout">
             <aside class="contact-card">
               <span class="eyebrow">Start Here</span>
@@ -145,242 +69,69 @@
                 </div>
                 <div class="contact-list-item">
                   <strong>Studio email</strong>
-                  <p>Amar@EverestStudioandmedia.com</p>
+                  <p><a class="inline-link" href="mailto:Amar@EverestStudioandmedia.com">Amar@EverestStudioandmedia.com</a></p>
+                </div>
+                <div class="contact-list-item">
+                  <strong>Inquiry dashboard</strong>
+                  <p><a class="inline-link" href="/admin">Open admin dashboard</a></p>
                 </div>
               </div>
             </aside>
 
             <section class="contact-card">
-              <form action="#" method="post">
+              <form data-inquiry-form>
                 <div class="form-grid">
-                  <label for="full-name">
-                    Full name
-                    <input id="full-name" name="full_name" type="text" placeholder="Your full name" required />
+                  <label for="inquiry-name">
+                    Name
+                    <input id="inquiry-name" name="name" type="text" placeholder="Your name" required />
                   </label>
 
-                  <label for="email">
+                  <label for="inquiry-phone">
+                    Phone number
+                    <input id="inquiry-phone" name="phone" type="tel" placeholder="(555) 555-5555" required />
+                  </label>
+                </div>
+
+                <div class="form-grid">
+                  <label for="inquiry-email">
                     Email address
-                    <input id="email" name="email" type="email" placeholder="you@company.com" required />
+                    <input id="inquiry-email" name="email" type="email" placeholder="you@company.com" required />
                   </label>
                 </div>
 
-                <div class="form-grid">
-                  <label for="company">
-                    Company name
-                    <input id="company" name="company" type="text" placeholder="Company or organization" />
-                  </label>
-
-                  <label for="timeline">
-                    Timeline
-                    <select id="timeline" name="timeline" required>
-                      <option value="">Select project timeline</option>
-                      <option>Immediate / ASAP</option>
-                      <option>Within 30 days</option>
-                      <option>Within 60-90 days</option>
-                      <option>Exploring future options</option>
-                    </select>
-                  </label>
-                </div>
-
-                <label for="needs">
-                  Project needs
+                <label for="inquiry-message">
+                  Message
                   <textarea
-                    id="needs"
-                    name="project_needs"
-                    placeholder="Share your goals, scope, target audience, deliverables, and anything else that will help frame the project."
+                    id="inquiry-message"
+                    name="message"
+                    placeholder="Tell us what you need."
                     required
                   ></textarea>
                 </label>
 
-                <button class="button button-primary" type="submit">Submit Request</button>
-                <p class="form-note">
-                 We typically respond within 2 business days.
->>>>>>> e169e1c (Upload Everest Studio & Media site)
+                <button class="button button-primary" type="submit">Submit Inquiry</button>
+                <p class="form-note" data-inquiry-status aria-live="polite">
+                  Inquiries are stored in your admin dashboard and replies can come from Amar@EverestStudioandmedia.com.
                 </p>
-
-                <ul class="contact-list">
-                  <li>
-                    <strong>Typical fit</strong>
-                    <p>Luxury services, automotive brands, hospitality groups, real estate teams, premium local businesses, and modern founders.</p>
-                  </li>
-                  <li>
-                    <strong>Preferred scope</strong>
-                    <p>Brand refreshes, website launches, paid media support, content systems, and monthly retainers.</p>
-                  </li>
-                  <li>
-                    <strong>Studio email</strong>
-                    <p>Amar@EverestStudioandmedia.com</p>
-                  </li>
-                </ul>
-              </aside>
-
-              <section class="form-card" data-reveal>
-                <h3>Start the conversation</h3>
-                <p>
-                  Share the essentials below and the structure is ready to be connected to your
-                  preferred inbox or CRM endpoint on deployment.
-                </p>
-
-                <form class="form-stack" data-contact-form action="#" method="post">
-                  <div class="field-grid">
-                    <label for="full-name">
-                      <span>Full name</span>
-                      <input id="full-name" name="full_name" type="text" placeholder="Your full name" required />
-                    </label>
-
-                    <label for="email">
-                      <span>Email address</span>
-                      <input id="email" name="email" type="email" placeholder="you@company.com" required />
-                    </label>
-                  </div>
-
-                  <div class="field-grid">
-                    <label for="company">
-                      <span>Company</span>
-                      <input id="company" name="company" type="text" placeholder="Company or brand" />
-                    </label>
-
-                    <label for="timeline">
-                      <span>Timeline</span>
-                      <select id="timeline" name="timeline" required>
-                        <option value="">Select timing</option>
-                        <option>Immediate</option>
-                        <option>Within 30 days</option>
-                        <option>Within 60 to 90 days</option>
-                        <option>Exploring future options</option>
-                      </select>
-                    </label>
-                  </div>
-
-                  <div class="field-grid">
-                    <label for="service-interest">
-                      <span>Primary need</span>
-                      <select id="service-interest" name="service_interest" required>
-                        <option value="">Select focus</option>
-                        <option>Brand Identity</option>
-                        <option>Website Design</option>
-                        <option>Website Development</option>
-                        <option>Social Media Content</option>
-                        <option>Paid Media</option>
-                        <option>Growth Strategy</option>
-                        <option>Creative Direction</option>
-                        <option>Ongoing Management</option>
-                      </select>
-                    </label>
-
-                    <label for="budget">
-                      <span>Investment range</span>
-                      <select id="budget" name="budget">
-                        <option value="">Select range</option>
-                        <option>$3,000 to $7,500</option>
-                        <option>$7,500 to $15,000</option>
-                        <option>$15,000 to $30,000</option>
-                        <option>$30,000 and above</option>
-                      </select>
-                    </label>
-                  </div>
-
-                  <label for="needs">
-                    <span>Project brief</span>
-                    <textarea
-                      id="needs"
-                      name="project_needs"
-                      placeholder="Tell us what the brand needs, what is not working right now, who the audience is, and what success should look like."
-                      required
-                    ></textarea>
-                  </label>
-
-                  <button class="button button-primary" type="submit">Request Consultation</button>
-                  <p class="form-note">
-                    Connect this form to Formspree, HubSpot, or your preferred CRM endpoint on deployment.
-                  </p>
-                  <p class="form-status" data-form-status aria-live="polite"></p>
-                </form>
-              </section>
-            </div>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="container">
-            <div class="support-grid">
-              <article class="support-card" data-reveal>
-                <span class="section-kicker">Engagements</span>
-                <h3>Launch projects</h3>
-                <p>
-                  Best for defined rebrands, website launches, or campaign pushes that need a
-                  premium system and a clear rollout window.
-                </p>
-              </article>
-
-              <article class="support-card" data-reveal>
-                <span class="section-kicker">Engagements</span>
-                <h3>Ongoing retainers</h3>
-                <p>
-                  Best for brands that want recurring content support, campaign refinement, site
-                  updates, and strategic oversight after the first launch is live.
-                </p>
-              </article>
-            </div>
+              </form>
+            </section>
           </div>
         </section>
       </main>
 
       <footer class="site-footer">
-<<<<<<< HEAD
-        <div class="container footer-shell">
-          <div class="footer-grid">
-            <div>
-              <a class="brand-mark footer-brand" href="index.html">
-                <img class="brand-logo-image" src="logo-main.png" alt="Everest Studio &amp; Media" />
-              </a>
-              <p class="footer-note">
-                Everest Studio &amp; Media builds premium identity systems, websites, content,
-                and campaigns for brands that intend to lead.
-              </p>
-            </div>
-
-            <div>
-              <p class="footer-title">Navigation</p>
-              <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="index.html#about">About</a>
-                <a href="contact.html">Contact</a>
-              </div>
-            </div>
-
-            <div>
-              <p class="footer-title">Studio</p>
-              <div class="footer-links">
-                <a href="services.html">Service Overview</a>
-                <a href="portfolio.html">Case Studies</a>
-                <a href="contact.html">Book a Consultation</a>
-              </div>
-            </div>
-
-            <div>
-              <p class="footer-title">Connect</p>
-              <div class="footer-links">
-                <a href="mailto:Amar@EverestStudioandmedia.com">Amar@EverestStudioandmedia.com</a>
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-bottom">
-            <p>&copy; 2026 Everest Studio &amp; Media</p>
-            <p>Luxury creative and growth systems for ambitious brands.</p>
-          </div>
-=======
         <div class="footer-card">
-          <p>A direct inquiry experience for brands that value clarity and discretion.</p>
-          <p>&copy; 2026 Everest Studio &amp; Media</p>
->>>>>>> e169e1c (Upload Everest Studio & Media site)
+          <div class="footer-block">
+            <p>A direct inquiry experience for brands that value clarity and discretion.</p>
+            <a class="footer-link" href="mailto:Amar@EverestStudioandmedia.com">Amar@EverestStudioandmedia.com</a>
+          </div>
+          <div class="footer-block footer-block-end">
+            <a class="button button-secondary footer-admin-button" href="/admin">Admin Login</a>
+            <p>&copy; 2026 Everest Studio &amp; Media</p>
+          </div>
         </div>
       </footer>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
